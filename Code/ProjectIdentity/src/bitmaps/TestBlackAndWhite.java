@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 public class TestBlackAndWhite {
 
 	List<String> coords;
+	List<Integer> toBox;
 	
 	public static void main(String[] args) {
 		new TestBlackAndWhite();
@@ -47,12 +48,15 @@ public class TestBlackAndWhite {
 	public class TestPane extends JPanel {
 
 		private BufferedImage master;
-
+		private BufferedImage toSave;
+		
+		
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/test5.jpg"));
-				
+				master = ImageIO.read(new File("./images/test4.jpg"));
+				toSave = ImageIO.read(new File("./images/test4.jpg"));
 				coords = new ArrayList<String>();
+				toBox = new ArrayList<Integer>();
 				
 				for (int h = 0; h < master.getWidth(); h++) {
 					for (int v = 0; v < master.getHeight(); v++) {
@@ -63,6 +67,53 @@ public class TestBlackAndWhite {
 						}
 					}
 				}
+				
+				for(String coord : coords)
+				{
+					String[] toPaint = coord.split(" ");
+					toSave.setRGB(Integer.parseInt(toPaint[0]), Integer.parseInt(toPaint[1]), Color.YELLOW.getRGB());
+				}
+				
+				File image = new File("./images/BoxMe.png");
+				ImageIO.write(toSave, "png", image);
+				
+				int lx = toSave.getWidth();
+				int rx = 0;
+				int ty = toSave.getHeight();
+				int by = 0;
+				
+				for(int leftX = 0; leftX < toSave.getWidth(); leftX++)
+				{
+					for(int topY = 0; topY < toSave.getHeight(); topY++)
+					{
+						if(toSave.getRGB(leftX, topY) == Color.YELLOW.getRGB())
+						{
+							if(leftX<lx)
+							{
+								lx=leftX;
+							}
+							if(topY<ty)
+							{
+								ty=topY;
+							}
+							if(leftX>rx)
+							{
+								rx=leftX;
+							}
+							if(topY>by)
+							{
+								by=topY;
+							}
+						}	
+					}
+				}
+				
+				toBox.add(lx);
+				toBox.add(ty);
+				toBox.add(rx);
+				toBox.add(by);
+				
+				System.out.println(lx+" "+rx+" "+ty+" "+by);
 				
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -98,9 +149,13 @@ public class TestBlackAndWhite {
 					g.setColor(Color.YELLOW);
 					g.drawOval(x+ Integer.parseInt(toPaint[0]), y+Integer.parseInt(toPaint[1]), 1, 1);
 				}
+				g.setColor(Color.RED);
+				g.drawRect(toBox.get(0), toBox.get(1), toBox.get(2)-toBox.get(0), toBox.get(3)-toBox.get(1));
+				
 			}
 		}
 
+		// r=95 g=40 b=20
 		public boolean isSkinRGB(int r, int g, int b) {
 		    if ( (r<95) | (g<40) | (b<20) | (r<g) | (r<b) ) {
 		        return false;
