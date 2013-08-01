@@ -55,8 +55,8 @@ public class TestFacialRecognition {
 
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/test4.jpg"));
-				toSave = ImageIO.read(new File("./images/test4.jpg"));
+				master = ImageIO.read(new File("./images/test3.jpg"));
+				toSave = ImageIO.read(new File("./images/test3.jpg"));
 				skinned = Color.YELLOW;
 				coords = new ArrayList<String>();
 				toBox = new ArrayList<Integer>();
@@ -107,10 +107,6 @@ public class TestFacialRecognition {
 				try {
 					image = ImageIO.read(new File("./images/AnalyzeMe.png"));
 					g.drawImage(image, x, y, this);
-					g.setColor(Color.blue);
-					g.drawOval(168, 304, 10, 10);
-					g.setColor(Color.blue);
-					g.drawOval(168, 500, 10, 10);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -257,7 +253,7 @@ public class TestFacialRecognition {
 						for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < y + 30 && !foundSkin; temp++) {
+								for (int temp = y; temp < y +30 && !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
 										foundSkin = true;
@@ -341,21 +337,19 @@ public class TestFacialRecognition {
 										foundSkin = true;
 								}
 								if (!foundSkin) {
-									for (int i = y; i < image.getHeight()
-											&& !isFace; i++) {
-										if (image.getRGB(leftX, i) == skinned
-												.getRGB()) {
-											botFace = i;
-											isFace = true;
-										}
-									}
+									botFace = y;
+									isFace = true;
 								}
 							}
 
 						}
 					}
 				}
+				System.out.println(toBox.get(1));
 				System.out.println(botFace);
+				int newBotBox = toBox.get(1)+botFace;
+				System.out.println(newBotBox);
+				toBox.set(3, newBotBox);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
