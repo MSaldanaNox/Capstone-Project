@@ -56,8 +56,8 @@ public class TestFacialRecognition {
 
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/test3.jpg"));
-				toSave = ImageIO.read(new File("./images/test3.jpg"));
+				master = ImageIO.read(new File("./images/test6.jpg"));
+				toSave = ImageIO.read(new File("./images/test6.jpg"));
 				skinned = Color.YELLOW;
 				coords = new ArrayList<String>();
 				toBox = new ArrayList<Integer>();
@@ -79,11 +79,11 @@ public class TestFacialRecognition {
 				}
 
 				boxFace();
-				
-				if (hasEyes())
-					if (hasNose())
-						if (hasMouth())
-							validateFace();
+				if (calculatePercentage() >= 30)
+					if (hasEyes())
+						if (hasNose())
+							if (hasMouth())
+								validateFace();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
@@ -278,14 +278,15 @@ public class TestFacialRecognition {
 				image = ImageIO.read(new File("./images/AnalyzeMe.png"));
 				int topNose = 0;
 				int botNose = 0;
-				int allowedSpace = (int)(image.getWidth()*.056925996);
+				int allowedSpace = (int) (image.getWidth() * .056925996);
 				int leftX = image.getWidth() / 2;
 				for (int topY = botEyes; topY < image.getHeight() && !hasNose; topY++) {
 					if (image.getRGB(leftX, topY) == skinned.getRGB()) {
 						for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < y + allowedSpace && !foundSkin; temp++) {
+								for (int temp = y; temp < y + allowedSpace
+										&& !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
 										foundSkin = true;
@@ -356,7 +357,7 @@ public class TestFacialRecognition {
 			try {
 				image = ImageIO.read(new File("./images/AnalyzeMe.png"));
 				int botFace = 0;
-				int allowedSpace = (int)(image.getWidth()*.056925996);
+				int allowedSpace = (int) (image.getWidth() * .056925996);
 				int leftX = image.getWidth() / 2;
 				for (int topY = mouthBot; topY < image.getHeight() && !isFace; topY++) {
 					if (image.getRGB(leftX, topY) == skinned.getRGB()) {
