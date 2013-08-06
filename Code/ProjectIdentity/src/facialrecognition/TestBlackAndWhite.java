@@ -1,4 +1,4 @@
-package bitmaps;
+package facialrecognition;
 
 import java.awt.Color;
 import java.awt.Dimension;

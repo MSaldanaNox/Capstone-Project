@@ -1,4 +1,4 @@
-package bitmaps;
+package facialrecognition;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +14,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+
+//30 people
+//
+//15 that work
+//7 that dont 
+//the rest are of people with heads turned
+//
+//with 12 celebrities get 5 of each and run the 
+//algorithm to scna each and output cropped image file
+
 
 public class TestFacialRecognition {
 
@@ -56,8 +66,8 @@ public class TestFacialRecognition {
 
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/test6.jpg"));
-				toSave = ImageIO.read(new File("./images/test6.jpg"));
+				master = ImageIO.read(new File("./images/test7.jpg"));
+				toSave = ImageIO.read(new File("./images/test7.jpg"));
 				skinned = Color.YELLOW;
 				coords = new ArrayList<String>();
 				toBox = new ArrayList<Integer>();
@@ -388,6 +398,10 @@ public class TestFacialRecognition {
 
 		// r=95 g=40 b=20
 		public boolean isSkinRGB(int r, int g, int b) {
+//			if ((r > 220) | (g > 160) | (b > 180) | (r < g) | (r < b)) {
+//				return false;
+//			}
+			
 			if ((r < 95) | (g < 40) | (b < 20) | (r < g) | (r < b)) {
 				return false;
 			}
