@@ -49,13 +49,11 @@ public class FaceRecognition {
 		isFace = false;
 	}
 
-	public void runTests()
-	{
+	public void runTests() {
 		findSkin();
-		System.out.println(calculatePercentage(toSave));
 		boxFace();
 	}
-	
+
 	public void findSkin() {
 		for (int h = 0; h < master.getWidth(); h++) {
 			for (int v = 0; v < master.getHeight(); v++) {
@@ -74,10 +72,6 @@ public class FaceRecognition {
 	}
 
 	public void boxFace() {
-		String save = path.substring(0, path.lastIndexOf("/"));
-		String newFolder = save.substring(0, save.lastIndexOf("/")-1);
-		String imageName = path.substring(path.lastIndexOf("/")+1);
-		File image = new File(newFolder +"Tests/test-"+imageName);
 		int lx = toSave.getWidth();
 		int rx = 0;
 		int ty = toSave.getHeight();
@@ -111,11 +105,29 @@ public class FaceRecognition {
 		toBox.add(rx);
 		toBox.add(by);
 
+		String save = path.substring(0, path.lastIndexOf("/"));
+		String newFolder = save.substring(0, save.lastIndexOf("/") - 1)
+				+ "/Tests/";
+
+		if (!new File(newFolder).exists())
+			new File(newFolder).mkdirs();
+
+		toSave = toSave.getSubimage(toBox.get(0), toBox.get(1), toBox.get(2)
+				- toBox.get(0), toBox.get(3) - toBox.get(1));
+
+		String imageName = path.substring(path.lastIndexOf("/") + 1);
+		String test = "failed";
+
+		if (calculatePercentage(toSave) >= 30) {
+			test = "passed";
+			toSave = master.getSubimage(toBox.get(0), toBox.get(1),
+					toBox.get(2) - toBox.get(0), toBox.get(3) - toBox.get(1));
+		}
+
+		File image = new File(newFolder + "" + test + "-" + imageName);
+
 		try {
-			ImageIO.write(
-					toSave.getSubimage(toBox.get(0), toBox.get(1), toBox.get(2)
-							- toBox.get(0), toBox.get(3) - toBox.get(1)),
-					imageType, image);
+			ImageIO.write(toSave, imageType, image);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -270,7 +282,7 @@ public class FaceRecognition {
 				for (int y = topY; y < image.getHeight() && !isFace; y++) {
 					if (image.getRGB(leftX, y) != skinned.getRGB()) {
 						boolean foundSkin = false;
-						for (int temp = y; temp < y + 40 && !foundSkin; temp++) {
+						for (int temp = y; temp < y + 10 && !foundSkin; temp++) {
 							if (image.getRGB(leftX, temp) == skinned.getRGB())
 								foundSkin = true;
 						}
@@ -293,7 +305,7 @@ public class FaceRecognition {
 		// return false;
 		// }
 
-		if ((r < 95) | (g < 40) | (b < 20) | (r < g) | (r < b)) {
+		if ((r < 125) | (g < 60) | (b < 40) | (r < g) | (r < b)) {
 			return false;
 		}
 		int d = r - g;
