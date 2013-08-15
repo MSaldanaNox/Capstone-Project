@@ -124,14 +124,22 @@ public class FaceRecognition {
 //					validateFace(toSave);
 					if (calculatePercentage(toSave) >= 30) {
 						test = "passed";
+						
+						int w = toBox.get(2) - toBox.get(0);
+						int h = toBox.get(3) - toBox.get(1);
+						
+						if(h == 0)
+							h = toBox.get(3);
+						
 						toSave = master.getSubimage(toBox.get(0), toBox.get(1),
-								toBox.get(2) - toBox.get(0), toBox.get(3)
-										- toBox.get(1));
+								w, h);
 					}
 				}
 
 		File image = new File(newFolder + "" + test + "-" + imageName);
 
+		System.out.println(image.toString());
+		
 		try {
 			ImageIO.write(toSave, imageType, image);
 		} catch (IOException e) {
@@ -287,7 +295,7 @@ public class FaceRecognition {
 				for (int y = topY; y < image.getHeight() && !isFace; y++) {
 					if (image.getRGB(leftX, y) != skinned.getRGB()) {
 						boolean foundSkin = false;
-						for (int temp = y; temp < y + 10 && !foundSkin; temp++) {
+						for (int temp = y; temp < image.getHeight() && temp < y + 10 && !foundSkin; temp++) {
 							if (image.getRGB(leftX, temp) == skinned.getRGB())
 								foundSkin = true;
 						}
@@ -310,17 +318,17 @@ public class FaceRecognition {
 		// return false;
 		// }
 
-		if ((r < 145) | (g < 90) | (b < 70) | (r < g) | (r < b)) {
+		if ((r < 145) | (g < 100) | (b < 80) | (r < g) | (r < b)) {
 			return false;
 		}
 		int d = r - g;
-		if (-15 < d && d < 15) {
+		if (-10 < d && d < 10) {
 			return false;
 		}
 
 		int max = Math.max(Math.max(r, g), b);
 		int min = Math.min(Math.min(r, g), b);
-		if ((max - min) < 15) {
+		if ((max - min) < 10) {
 			return false;
 		}
 		return true;

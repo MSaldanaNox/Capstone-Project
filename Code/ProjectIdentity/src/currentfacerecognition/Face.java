@@ -4,13 +4,20 @@ public class Face {
 	
 	int faceWidth;
 	int faceHeight;
+	Nose nose;
+	Eyes eyes;
+	Mouth mouth;
+	
 	String name;
 	
-	public Face(String n, int h, int w)
+	public Face(String n, int h, int w, Nose nose, Eyes eyes, Mouth mouth)
 	{
-		name = n;
-		faceHeight = h;
-		faceWidth = w;
+		this.name = n;
+		this.faceHeight = h;
+		this.faceWidth = w;
+		this.nose = nose;
+		this.eyes = eyes;
+		this.mouth = mouth;
 	}
 
 	public String getName()
@@ -25,6 +32,4 @@ public class Face {
 	public int getFaceHeight() {
 		return faceHeight;
 	}
-	
-	
 }
