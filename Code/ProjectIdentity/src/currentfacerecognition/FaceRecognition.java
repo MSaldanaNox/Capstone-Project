@@ -318,17 +318,17 @@ public class FaceRecognition {
 		// return false;
 		// }
 
-		if ((r < 145) | (g < 100) | (b < 80) | (r < g) | (r < b)) {
+		if ((r < 135) | (g < 80) | (b < 60) | (r < g) | (r < b)) {
 			return false;
 		}
 		int d = r - g;
-		if (-10 < d && d < 10) {
+		if (-20 < d && d < 20) {
 			return false;
 		}
 
 		int max = Math.max(Math.max(r, g), b);
 		int min = Math.min(Math.min(r, g), b);
-		if ((max - min) < 10) {
+		if ((max - min) < 20) {
 			return false;
 		}
 		return true;
