@@ -8,22 +8,20 @@ import javax.imageio.ImageIO;
 import currentfacerecognition.FaceRecognition;
 
 public class IterateThroughFaces {
-
 	String root;
 	FaceRecognition fr;
-	
+
 	public IterateThroughFaces()
 	{
 		root = "./images/TestOut/";
-		//fr = new FaceRecognition();
 	}
-	
+
 	public static void main(String[]args)
 	{
 		IterateThroughFaces app = new IterateThroughFaces();
 		app.search();
 	}
-	
+
 	public void search() {
 		File folder = new File(root);
 		File[] listOfFiles = folder.listFiles();

@@ -118,11 +118,17 @@ public class FaceRecognition {
 		String imageName = path.substring(path.lastIndexOf("/") + 1);
 		String test = "failed";
 
-		if (calculatePercentage(toSave) >= 30) {
-			test = "passed";
-			toSave = master.getSubimage(toBox.get(0), toBox.get(1),
-					toBox.get(2) - toBox.get(0), toBox.get(3) - toBox.get(1));
-		}
+		if (hasEyes(toSave))
+			if (hasNose(toSave))
+				if (hasMouth(toSave)) {
+//					validateFace(toSave);
+					if (calculatePercentage(toSave) >= 30) {
+						test = "passed";
+						toSave = master.getSubimage(toBox.get(0), toBox.get(1),
+								toBox.get(2) - toBox.get(0), toBox.get(3)
+										- toBox.get(1));
+					}
+				}
 
 		File image = new File(newFolder + "" + test + "-" + imageName);
 
@@ -217,8 +223,7 @@ public class FaceRecognition {
 				for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 					if (image.getRGB(leftX, y) != skinned.getRGB()) {
 						boolean foundSkin = false;
-						for (int temp = y; temp < y + allowedSpace
-								&& !foundSkin; temp++) {
+						for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace && !foundSkin; temp++) {
 							if (image.getRGB(leftX, temp) == skinned.getRGB())
 								foundSkin = true;
 						}
@@ -305,7 +310,7 @@ public class FaceRecognition {
 		// return false;
 		// }
 
-		if ((r < 125) | (g < 60) | (b < 40) | (r < g) | (r < b)) {
+		if ((r < 145) | (g < 90) | (b < 70) | (r < g) | (r < b)) {
 			return false;
 		}
 		int d = r - g;
