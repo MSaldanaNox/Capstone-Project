@@ -1,0 +1,29 @@
+Success
+detect faces in pictures
+API for face recognition
+Remember face
+stretch: engine to learn and adapt
+From scratch
+
+Stories
+Have engine
+no false positives
+fast and effecient
+only faces, no objects
+easy to use api
+flexible api
+results to be varied
+several faces to be remembered
+
+image
+720x800
+eye
+43x123
+nose
+165x203
+nostril(19 from left, 162 from top)
+50x21
+mouth
+255x116
+forehead
+475x221

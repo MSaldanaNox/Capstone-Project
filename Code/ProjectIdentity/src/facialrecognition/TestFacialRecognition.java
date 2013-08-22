@@ -43,7 +43,7 @@ public class TestFacialRecognition {
 							.getSystemLookAndFeelClassName());
 				} catch (Exception ex) {
 				}
-
+System.out.println("Initialized");
 				JFrame frame = new JFrame("Face Recognition");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.add(new TestPane());
@@ -66,9 +66,9 @@ public class TestFacialRecognition {
 
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/test7.jpg"));
-				toSave = ImageIO.read(new File("./images/test7.jpg"));
-				skinned = Color.YELLOW;
+				master = ImageIO.read(new File("./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
+				toSave = ImageIO.read(new File("./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
+				skinned = Color.cyan;
 				coords = new ArrayList<String>();
 				toBox = new ArrayList<Integer>();
 				isFace = false;
@@ -90,10 +90,22 @@ public class TestFacialRecognition {
 
 				boxFace();
 				if (calculatePercentage() >= 30)
+				{
+					System.out.println("perc");
 					if (hasEyes())
+					{
+						System.out.println("eye");
 						if (hasNose())
+						{
+							System.out.println("nose");
 							if (hasMouth())
+							{
+								System.out.println("mouth");
 								validateFace();
+							}
+						}
+					}
+				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
@@ -288,14 +300,14 @@ public class TestFacialRecognition {
 				image = ImageIO.read(new File("./images/AnalyzeMe.png"));
 				int topNose = 0;
 				int botNose = 0;
-				int allowedSpace = (int) (image.getWidth() * .056925996);
+				int allowedSpace = (int) (image.getHeight() * .056925996);
 				int leftX = image.getWidth() / 2;
 				for (int topY = botEyes; topY < image.getHeight() && !hasNose; topY++) {
 					if (image.getRGB(leftX, topY) == skinned.getRGB()) {
 						for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < y + allowedSpace
+								for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace
 										&& !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
@@ -362,6 +374,7 @@ public class TestFacialRecognition {
 		}
 
 		public void validateFace() {
+			System.out.println("wwent");
 			isFace = false;
 			BufferedImage image;
 			try {
@@ -374,13 +387,14 @@ public class TestFacialRecognition {
 						for (int y = topY; y < image.getHeight() && !isFace; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < y + 40 && !foundSkin; temp++) {
+								for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace && !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
 										foundSkin = true;
 								}
 								if (!foundSkin) {
 									botFace = y;
+									System.out.println(botFace);
 									isFace = true;
 								}
 							}
@@ -388,6 +402,7 @@ public class TestFacialRecognition {
 						}
 					}
 				}
+				System.out.println("wwent");
 				int newBotBox = toBox.get(1) + botFace;
 				toBox.set(3, newBotBox);
 			} catch (IOException e1) {
@@ -402,17 +417,17 @@ public class TestFacialRecognition {
 //				return false;
 //			}
 			
-			if ((r < 95) | (g < 40) | (b < 20) | (r < g) | (r < b)) {
+			if ((r < 135) | (g < 80) | (b < 60) | (r < g) | (r < b)) {
 				return false;
 			}
 			int d = r - g;
-			if (-15 < d && d < 15) {
+			if (-25 < d && d < 25) {
 				return false;
 			}
 
 			int max = Math.max(Math.max(r, g), b);
 			int min = Math.min(Math.min(r, g), b);
-			if ((max - min) < 15) {
+			if ((max - min) < 25) {
 				return false;
 			}
 			return true;

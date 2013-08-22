@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class FaceRecognition {
 		imageType = type;
 		master = img;
 		toSave = img;
-		skinned = Color.YELLOW;
+		skinned = Color.BLUE;
 		coords = new ArrayList<String>();
 		toBox = new ArrayList<Integer>();
 		isFace = false;
@@ -121,25 +122,21 @@ public class FaceRecognition {
 		if (hasEyes(toSave))
 			if (hasNose(toSave))
 				if (hasMouth(toSave)) {
-//					validateFace(toSave);
 					if (calculatePercentage(toSave) >= 30) {
 						test = "passed";
-						
+
 						int w = toBox.get(2) - toBox.get(0);
 						int h = toBox.get(3) - toBox.get(1);
-						
-						if(h == 0)
+
+						if (h == 0)
 							h = toBox.get(3);
-						
+
 						toSave = master.getSubimage(toBox.get(0), toBox.get(1),
 								w, h);
 					}
 				}
-
 		File image = new File(newFolder + "" + test + "-" + imageName);
-
 		System.out.println(image.toString());
-		
 		try {
 			ImageIO.write(toSave, imageType, image);
 		} catch (IOException e) {
@@ -231,7 +228,8 @@ public class FaceRecognition {
 				for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 					if (image.getRGB(leftX, y) != skinned.getRGB()) {
 						boolean foundSkin = false;
-						for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace && !foundSkin; temp++) {
+						for (int temp = y; temp < image.getHeight()
+								&& temp < y + allowedSpace && !foundSkin; temp++) {
 							if (image.getRGB(leftX, temp) == skinned.getRGB())
 								foundSkin = true;
 						}
@@ -295,7 +293,8 @@ public class FaceRecognition {
 				for (int y = topY; y < image.getHeight() && !isFace; y++) {
 					if (image.getRGB(leftX, y) != skinned.getRGB()) {
 						boolean foundSkin = false;
-						for (int temp = y; temp < image.getHeight() && temp < y + 10 && !foundSkin; temp++) {
+						for (int temp = y; temp < image.getHeight()
+								&& temp < y + 10 && !foundSkin; temp++) {
 							if (image.getRGB(leftX, temp) == skinned.getRGB())
 								foundSkin = true;
 						}
@@ -313,12 +312,13 @@ public class FaceRecognition {
 	}
 
 	// r=95 g=40 b=20
+	// Outlines can be found by switching the upper color bounds to | instead of &
 	public boolean isSkinRGB(int r, int g, int b) {
-		// if ((r > 220) | (g > 160) | (b > 180) | (r < g) | (r < b)) {
-		// return false;
-		// }
+		if ((r > 235) & (g > 180) & (b > 160)) {
+			return false;
+		}
 
-		if ((r < 135) | (g < 80) | (b < 60) | (r < g) | (r < b)) {
+		if ((r < 125) | (g < 70) | (b < 50) | (r < g) | (r < b)) {
 			return false;
 		}
 		int d = r - g;
