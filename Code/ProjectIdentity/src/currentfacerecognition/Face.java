@@ -51,11 +51,11 @@ public class Face {
 
 	String name;
 	
-	public Face(String name, int height, int weight, Forehead fore, Nose nose, Eyes eyes, Mouth mouth)
+	public Face(String name, int height, int width, Forehead fore, Nose nose, Eyes eyes, Mouth mouth)
 	{
 		this.name = name;
 		this.faceHeight = height;
-		this.faceWidth = weight;
+		this.faceWidth = width;
 		this.forehead = fore;
 		this.nose = nose;
 		this.eyes = eyes;

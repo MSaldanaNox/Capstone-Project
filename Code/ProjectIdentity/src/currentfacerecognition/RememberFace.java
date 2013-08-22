@@ -1,19 +1,35 @@
 package currentfacerecognition;
 
+import java.awt.Dimension;
+
 public class RememberFace {
 
-	public RememberFace()
-	{
-		
+	Forehead forehead;
+	Nose nose;
+	Eyes eyes;
+	Mouth mouth;
+	Face face;
+
+	public RememberFace() {
 	}
-	
-	public void recordFace()
-	{
-		Forehead forehead = new Forehead(0, 0);
-		Nose nose = new Nose();
-		Eyes eyes = new Eyes();
-		Mouth mouth = new Mouth();
-		Face face = new Face("Test", 0, 0, new Forehead(0, 0), new Nose(0, 0), new Eyes(0, 0, 0, 0, 0), new Mouth(0, 0));
+
+	public void createForehead(Dimension d) {
+		forehead = new Forehead(d.height, d.width);
 	}
-	
+
+	public void createNose(Dimension d) {
+		nose = new Nose(d.height, d.width);
+	}
+
+	public void createEyes(int space, int length) {
+		eyes = new Eyes(space, length, 0, 0, 0);
+	}
+
+	public void createMouth(int space, int thickness) {
+		mouth = new Mouth(space, thickness);
+	}
+
+	public void createFace(String name, int height, int width) {
+		face = new Face("Test", height, width, forehead, nose, eyes, mouth);
+	}
 }

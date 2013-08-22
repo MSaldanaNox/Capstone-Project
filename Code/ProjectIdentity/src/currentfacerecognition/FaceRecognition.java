@@ -38,7 +38,8 @@ public class FaceRecognition {
 	private int noseBot;
 	private int mouthBot;
 	private boolean isFace;
-
+	private RememberFace face;
+	
 	public FaceRecognition(String p, BufferedImage img, String type) {
 		path = p;
 		imageType = type;
@@ -48,6 +49,7 @@ public class FaceRecognition {
 		coords = new ArrayList<String>();
 		toBox = new ArrayList<Integer>();
 		isFace = false;
+		face = new RememberFace();
 	}
 
 	public void runTests() {
@@ -210,6 +212,9 @@ public class FaceRecognition {
 				break;
 			}
 		}
+		
+		face.createEyes(rightX-leftX, rightX-(rightX/2));
+		
 		if (hasRight && hasLeft)
 			return true;
 		else
@@ -278,7 +283,13 @@ public class FaceRecognition {
 				break;
 			}
 		}
-
+		face.createMouth(topMouth, botMouth);
+		face.createFace("Test Face - last face to do", image.getHeight(), image.getWidth());
+		
+		System.out.println("Face height: " + face.face.faceHeight);
+		System.out.println("Face width: " + face.face.faceWidth);
+		System.out.println("Face name: " + face.face.name);
+		
 		return hasMouth;
 	}
 
