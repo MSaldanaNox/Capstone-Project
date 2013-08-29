@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -342,17 +343,52 @@ public class FaceRecognition {
 		toBox.set(3, newBotBox);
 	}
 
-	public void recordForehead()
+	public void recordFace()
 	{
+		recordFaceDimensions(recordForehead(), recordEyes(), recordNose(), recordMouth());
+	}
+	
+	public void recordFaceDimensions(Forehead fore, Eyes eyes, Nose nose, Mouth mouth)
+	{
+		Face face = new Face("Name", toSave.getHeight(), toSave.getWidth(), fore, nose, eyes, mouth);
 		
 	}
 	
-	public void recordEyes()
+	public Forehead recordForehead()
+	{
+		Forehead fore = new Forehead();
+		fore.setForeheadDimensions(new Dimension());
+		return fore;
+	}
+	
+	public Eyes recordEyes()
+	{
+		Eyes eyes = new Eyes();
+		eyes.setEyeLength(0);
+		eyes.setEyeSpace(0);
+		return eyes;
+	}
+	
+	public Nose recordNose()
+	{
+		Nose nose = new Nose();
+		nose.setNoseDimensions(new Dimension());
+		nose.setNoseLocation(new Point());
+		return nose;
+	}
+	
+	public Mouth recordMouth()
+	{
+		Mouth mouth = new Mouth();
+		mouth.setMouthLocation(new Point());
+		mouth.setMouthSpace(0);
+		return mouth;
+	}
+	
+	public void matchFace()
 	{
 		
 	}
-	
-	
 	
 	// r=95 g=40 b=20
 	// Outlines can be found by switching the upper color bounds to | instead of
