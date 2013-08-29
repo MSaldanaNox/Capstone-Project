@@ -1,4 +1,6 @@
-package currentfacerecognition;
+package uniqueface;
+
+import java.awt.Dimension;
 
 //image
 //720x800
@@ -17,10 +19,10 @@ public class Forehead {
 	int foreheadHeight;
 	int foreheadWidth;
 	
-	public Forehead(int h, int w)
+	public void setForeheadDimensions(Dimension d)
 	{
-		foreheadHeight = h;
-		foreheadWidth = w;
+		this.foreheadHeight = d.height;
+		this.foreheadWidth = d.width;
 	}
 	
 	public int getForeheadHeight()

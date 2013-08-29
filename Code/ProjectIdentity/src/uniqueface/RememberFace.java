@@ -1,4 +1,4 @@
-package currentfacerecognition;
+package uniqueface;
 
 import java.awt.Dimension;
 
@@ -14,19 +14,19 @@ public class RememberFace {
 	}
 
 	public void createForehead(Dimension d) {
-		forehead = new Forehead(d.height, d.width);
+		forehead = new Forehead();
 	}
 
 	public void createNose(Dimension d) {
-		nose = new Nose(d.height, d.width);
+		nose = new Nose();
 	}
 
 	public void createEyes(int space, int length) {
-		eyes = new Eyes(space, length, 0, 0, 0);
+		eyes = new Eyes();
 	}
 
 	public void createMouth(int space, int thickness) {
-		mouth = new Mouth(space, thickness);
+		mouth = new Mouth();
 	}
 
 	public void createFace(String name, int height, int width) {

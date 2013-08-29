@@ -5,7 +5,8 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import currentfacerecognition.FaceRecognition;
+import uniqueface.FaceRecognition;
+
 
 public class IterateThroughFaces {
 	String root;
@@ -13,7 +14,7 @@ public class IterateThroughFaces {
 
 	public IterateThroughFaces()
 	{
-		root = "./images/TestOut/";
+		root = "./images/UniqueTest/";
 	}
 
 	public static void main(String[]args)

@@ -24,7 +24,6 @@ import javax.swing.UIManager;
 //with 12 celebrities get 5 of each and run the 
 //algorithm to scna each and output cropped image file
 
-
 public class TestFacialRecognition {
 
 	List<String> coords;
@@ -43,7 +42,7 @@ public class TestFacialRecognition {
 							.getSystemLookAndFeelClassName());
 				} catch (Exception ex) {
 				}
-System.out.println("Initialized");
+				System.out.println("Initialized");
 				JFrame frame = new JFrame("Face Recognition");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.add(new TestPane());
@@ -66,8 +65,12 @@ System.out.println("Initialized");
 
 		public TestPane() {
 			try {
-				master = ImageIO.read(new File("./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
-				toSave = ImageIO.read(new File("./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
+				master = ImageIO
+						.read(new File(
+								"./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
+				toSave = ImageIO
+						.read(new File(
+								"./images/TestOut/emma_watson_face_by_magikshot-d33ifsx.jpg"));
 				skinned = Color.cyan;
 				coords = new ArrayList<String>();
 				toBox = new ArrayList<Integer>();
@@ -89,17 +92,13 @@ System.out.println("Initialized");
 				}
 
 				boxFace();
-				if (calculatePercentage() >= 30)
-				{
+				if (calculatePercentage() >= 30) {
 					System.out.println("perc");
-					if (hasEyes())
-					{
+					if (hasEyes()) {
 						System.out.println("eye");
-						if (hasNose())
-						{
+						if (hasNose()) {
 							System.out.println("nose");
-							if (hasMouth())
-							{
+							if (hasMouth()) {
 								System.out.println("mouth");
 								validateFace();
 							}
@@ -307,7 +306,8 @@ System.out.println("Initialized");
 						for (int y = topY; y < image.getHeight() && !hasNose; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace
+								for (int temp = y; temp < image.getHeight()
+										&& temp < y + allowedSpace
 										&& !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
@@ -387,7 +387,9 @@ System.out.println("Initialized");
 						for (int y = topY; y < image.getHeight() && !isFace; y++) {
 							if (image.getRGB(leftX, y) != skinned.getRGB()) {
 								boolean foundSkin = false;
-								for (int temp = y; temp < image.getHeight() && temp < y + allowedSpace && !foundSkin; temp++) {
+								for (int temp = y; temp < image.getHeight()
+										&& temp < y + allowedSpace
+										&& !foundSkin; temp++) {
 									if (image.getRGB(leftX, temp) == skinned
 											.getRGB())
 										foundSkin = true;
@@ -413,10 +415,10 @@ System.out.println("Initialized");
 
 		// r=95 g=40 b=20
 		public boolean isSkinRGB(int r, int g, int b) {
-//			if ((r > 220) | (g > 160) | (b > 180) | (r < g) | (r < b)) {
-//				return false;
-//			}
-			
+			// if ((r > 220) | (g > 160) | (b > 180) | (r < g) | (r < b)) {
+			// return false;
+			// }
+
 			if ((r < 135) | (g < 80) | (b < 60) | (r < g) | (r < b)) {
 				return false;
 			}

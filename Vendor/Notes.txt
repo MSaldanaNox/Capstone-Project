@@ -27,3 +27,11 @@ mouth
 255x116
 forehead
 475x221
+
+ratios:
+image of face 100% 720x800
+eye = 		5.972% x 15.375%
+nose = 		22.91667% x 25.375%
+nostrils = 	6.9444% x 2.625%
+mouth = 	35.41667% x 14.5% - flip
+forehead = 	65.97222% x 27%.625% - flip

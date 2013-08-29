@@ -1,10 +1,12 @@
-package currentfacerecognition;
+package uniqueface;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +25,7 @@ import javax.swing.UIManager;
 //the rest are of people with heads turned
 //
 //with 12 celebrities get 5 of each and run the 
-//algorithm to scna each and output cropped image file
+//algorithm to scan each and output cropped image file
 
 public class FaceRecognition {
 
@@ -39,13 +41,13 @@ public class FaceRecognition {
 	private int mouthBot;
 	private boolean isFace;
 	private RememberFace face;
-	
+
 	public FaceRecognition(String p, BufferedImage img, String type) {
 		path = p;
 		imageType = type;
 		master = img;
 		toSave = img;
-		skinned = Color.BLUE;
+		skinned = Color.YELLOW;
 		coords = new ArrayList<String>();
 		toBox = new ArrayList<Integer>();
 		isFace = false;
@@ -142,9 +144,30 @@ public class FaceRecognition {
 		try {
 			ImageIO.write(toSave, imageType, image);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public BufferedImage resizeImage(BufferedImage originalImage) {
+		BufferedImage resizedImage = new BufferedImage(720, 800,
+				originalImage.getType());
+		Graphics2D g = resizedImage.createGraphics();
+		System.out.println(originalImage.getHeight());
+		double ratio = 800.0 / ((double) originalImage.getHeight());
+		System.out.println(ratio);
+
+		int width = (int) (originalImage.getWidth() * ratio);
+		System.out.println(width);
+		// g.drawImage(originalImage, 0, 0, width, 800, null);
+		g.dispose();
+		g.setComposite(AlphaComposite.Src);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,
+				RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		return resizedImage;
 	}
 
 	// % >= 30
@@ -212,9 +235,9 @@ public class FaceRecognition {
 				break;
 			}
 		}
-		
-		face.createEyes(rightX-leftX, rightX-(rightX/2));
-		
+
+		face.createEyes(rightX - leftX, rightX - (rightX / 2));
+
 		if (hasRight && hasLeft)
 			return true;
 		else
@@ -284,12 +307,9 @@ public class FaceRecognition {
 			}
 		}
 		face.createMouth(topMouth, botMouth);
-		face.createFace("Test Face - last face to do", image.getHeight(), image.getWidth());
-		
-		System.out.println("Face height: " + face.face.faceHeight);
-		System.out.println("Face width: " + face.face.faceWidth);
-		System.out.println("Face name: " + face.face.name);
-		
+		face.createFace("Test Face - last face to do", image.getHeight(),
+				image.getWidth());
+
 		return hasMouth;
 	}
 
@@ -322,8 +342,21 @@ public class FaceRecognition {
 		toBox.set(3, newBotBox);
 	}
 
+	public void recordForehead()
+	{
+		
+	}
+	
+	public void recordEyes()
+	{
+		
+	}
+	
+	
+	
 	// r=95 g=40 b=20
-	// Outlines can be found by switching the upper color bounds to | instead of &
+	// Outlines can be found by switching the upper color bounds to | instead of
+	// &
 	public boolean isSkinRGB(int r, int g, int b) {
 		if ((r > 235) & (g > 180) & (b > 160)) {
 			return false;
