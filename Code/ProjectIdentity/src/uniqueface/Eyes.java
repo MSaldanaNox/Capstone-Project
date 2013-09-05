@@ -16,7 +16,8 @@ public class Eyes {
 
 	int eyeSpace;
 	int eyeLength;
-
+	int eyeY;
+	
 	public void setEyeSpace(int space) {
 		this.eyeSpace = space;
 	}
@@ -31,5 +32,10 @@ public class Eyes {
 
 	public int getEyeLength() {
 		return this.eyeLength;
+	}
+	
+	public int getEyeY()
+	{
+		return eyeY;
 	}
 }

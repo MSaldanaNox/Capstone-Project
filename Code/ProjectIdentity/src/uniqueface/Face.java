@@ -20,7 +20,37 @@ public class Face {
 	Nose nose;
 	Eyes eyes;
 	Mouth mouth;
+	int betweenForeAndNose;
+	int betweenForeAndEyes;
+	int betweenForeAndMouth;
+	int betweenEyesAndNose;
+	int betweenEyesAndMouth;
+	int betweenNoseAndMouth;
 	
+	public int getBetweenForeAndNose() {
+		return forehead.getForeheadHeight()-nose.getNoseY();
+	}
+
+	public int getBetweenForeAndEyes() {
+		return forehead.getForeheadHeight()-eyes.getEyeY();
+	}
+
+	public int getBetweenForeAndMouth() {
+		return forehead.getForeheadHeight()-mouth.getMouthY();
+	}
+
+	public int getBetweenEyesAndNose() {
+		return eyes.getEyeY()-nose.getNoseY();
+	}
+
+	public int getBetweenEyesAndMouth() {
+		return eyes.getEyeY()-mouth.getMouthY();
+	}
+
+	public int getBetweenNoseAndMouth() {
+		return nose.getNoseY()-mouth.getMouthY();
+	}
+
 	public int getFaceWidth() {
 		return faceWidth;
 	}

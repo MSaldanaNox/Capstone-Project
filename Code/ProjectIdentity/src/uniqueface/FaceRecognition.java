@@ -342,16 +342,10 @@ public class FaceRecognition {
 		int newBotBox = toBox.get(1) + botFace;
 		toBox.set(3, newBotBox);
 	}
-
-	public void recordFace()
-	{
-		recordFaceDimensions(recordForehead(), recordEyes(), recordNose(), recordMouth());
-	}
 	
-	public void recordFaceDimensions(Forehead fore, Eyes eyes, Nose nose, Mouth mouth)
+	public Face recordFaceDimensions(Forehead fore, Eyes eyes, Nose nose, Mouth mouth)
 	{
-		Face face = new Face("Name", toSave.getHeight(), toSave.getWidth(), fore, nose, eyes, mouth);
-		
+		return new Face("Name", toSave.getHeight(), toSave.getWidth(), fore, nose, eyes, mouth);
 	}
 	
 	public Forehead recordForehead()

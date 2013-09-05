@@ -14,7 +14,7 @@ public class IterateThroughFaces {
 
 	public IterateThroughFaces()
 	{
-		root = "./images/UniqueTest/";
+		root = "./images/TestOut/";
 	}
 
 	public static void main(String[]args)

@@ -13,6 +13,11 @@ public class RememberFace {
 	public RememberFace() {
 	}
 
+	public void saveFace(Face f)
+	{
+		this.face = f;
+	}
+	
 	public void createForehead(Dimension d) {
 		forehead = new Forehead();
 	}
